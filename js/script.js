@@ -6,7 +6,13 @@ $(document).ready(function () {
     ]
   };
 
-  $('#simple-template').tmpl(data).appendTo('#main');
+  $('#simple-template').tmpl(data, {
+    //this could be constructed as an object to
+    //pass into all tmpl() calls
+    doSomethingElse: function (str) {
+      return str.toLowerCase() + " - I didn't pollute global scope";
+    }
+  }).appendTo('#main');
 
   /*
  http://www.borismoore.com/2010/09/introducing-jquery-templates-1-first.html
@@ -28,3 +34,26 @@ function doSomething(str) {
   return str.toUpperCase() + ' - look, I did something!';
 }
 
+//Debugging: you can do a console.log() in a template to find out
+//what's going on there.
+
+//As apps get more ajaxified, it makes sense for the server to just
+//return JSON. Using templates like this means we can simplify
+//the JavaScript needed to render that data, and keep the view
+//code out of the JavaScript.
+//
+//Variables available within template:
+//
+//$: The jQuery object.
+//
+//$item: The current template item - which allows access to
+//$item.data, $item.parent, etc. as well as any user-defined values
+//or methods passed in with the options map.
+//
+//$data: The current data item (equivalent to $item.data).
+//
+//Note: A template tag with content such as {{each}}...{{/each}} may
+//expose additional variables to template evaluation within the
+//content. In the case of {{each}}, for example, the additional
+//template variables $value and $index are provided within the
+//content of the {{each}} tag.
