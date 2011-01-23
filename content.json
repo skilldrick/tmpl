@@ -1,0 +1,17 @@
+{ 
+  "meta": {
+    "title": "A presentation on jQuery.tmpl, using jQuery.tmpl",
+    "author": "skilldrick@gmail.com"
+  },
+  "slides": [
+    {
+      "type": "start",
+      "title": "jQuery.tmpl()",
+      "subtitle": "No more string concatenation"
+    },
+    {
+      "type": "normal",
+      "title": "Introduction"
+    }
+  ]
+}

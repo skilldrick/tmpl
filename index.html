@@ -42,8 +42,8 @@
     <h1>${doSomething(title)}</h1>
   </script>
 
+  <!-- $item.parent instead of $item here because nested -->
   <script id="call-nonglobal-function" type="text/x-jquery-tmpl">
-    <!-- $item.parent instead of $item here because nested -->
     <h1>${$item.parent.doSomethingElse(title)}</h1>
   </script>
 
@@ -58,6 +58,12 @@
 
     {{tmpl "#footer-template"}}
   </script>
+
+  <script id="start-template" type="text/x-jquery-tmpl">
+    <h1>${title}</h1>
+    <h2>${subtitle}</h1>
+  </script>
+
 
   <div id="container">
     <header>

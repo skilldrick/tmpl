@@ -1,18 +1,18 @@
-$(document).ready(function () {
-  var data = { title: "Page 1", 
-    list: [ 
-      "This is a list item",
-      "This is also a list item"
-    ]
-  };
+(function ($) {
+  function init() {
+    $.getJSON('content.json', function (data) {
+      var current_slide = data.slides[0];
+      var selector = '#' + current_slide.type + '-template';
+      $(selector).tmpl(current_slide).appendTo('#main');
+    });
+  }
 
-  $('#simple-template').tmpl(data, {
-    //this could be constructed as an object to
-    //pass into all tmpl() calls
-    doSomethingElse: function (str) {
-      return str.toLowerCase() + " - I didn't pollute global scope";
-    }
-  }).appendTo('#main');
+
+  $(document).ready(function () {
+    init();
+  });
+
+})(jQuery);
 
   /*
  http://www.borismoore.com/2010/09/introducing-jquery-templates-1-first.html
@@ -23,7 +23,6 @@ http://blog.reybango.com/2010/07/09/not-using-jquery-javascript-templates-youre-
   {{html expression}} renders expression as HTML
   
   */
-});
 
 //Templates can process arbitrary expressions
 //"But don't go overboard! There is not a complete JavaScript parser
@@ -57,3 +56,10 @@ function doSomething(str) {
 //content. In the case of {{each}}, for example, the additional
 //template variables $value and $index are provided within the
 //content of the {{each}} tag.
+//
+//
+//{{if}} and {{else}} are simple
+//
+//{{html}} is like ${} but with unencoded HTML
+//
+//{{wrap}} is confusing - best avoided for now.
