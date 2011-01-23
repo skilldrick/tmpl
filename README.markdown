@@ -1,4 +1,4 @@
 ##Skilldrick's jQuery.tmpl presentation
 
-Yo dawg, we put a template in your template so you can avoid concatenation
-while you avoid concatenation.
+Yo dawg, I heard you like separation of content and behaviour so we put a
+template in your template so you can separate while you separate.
