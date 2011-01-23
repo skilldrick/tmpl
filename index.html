@@ -19,16 +19,29 @@
 
 <body lang="en" >
 
-  <script id="bullets" type="text/x-jquery-tmpl">
+  <!-- use {{tmpl($data) "#bullet-list"}} to call -->
+  <script id="bullet-list" type="text/x-jquery-tmpl">
     <ul>
-      {{each list}}<li>${doSomething($value)}</li>{{/each}}
+      {{each list}}<li>${$value}</li>{{/each}}
     </ul>
+  </script>
+
+  <!-- use {{tmpl($data) "#call-function"}} to call -->
+  <script id="call-function" type="text/x-jquery-tmpl">
+    <h1>${doSomething(title)}</h1>
+  </script>
+
+  <script id="bullet-item" type="text/x-jquery-tmpl">
+    <li>${$item.data}</li>
   </script>
 
   <script id="simple-template" type="text/x-jquery-tmpl">
     <h1>${title}</h1>
-
-    {{tmpl($data) "#bullets"}}
+    {{tmpl($data) "#call-function"}}
+    {{tmpl($data) "#bullet-list"}}
+    <ol>
+      {{tmpl(list) "#bullet-item"}}
+    </ol>
   </script>
 
   <div id="container">

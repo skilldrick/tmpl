@@ -25,6 +25,6 @@ http://blog.reybango.com/2010/07/09/not-using-jquery-javascript-templates-youre-
 //complex code, write a function, and call the function from your
 //template, and pass parameters if you need to: ${myFunction(a,b)}"
 function doSomething(str) {
-  return str.toUpperCase();
+  return str.toUpperCase() + ' - look, I did something!';
 }
 
