@@ -19,6 +19,18 @@
 
 <body lang="en" >
 
+  <script id="bullets" type="text/x-jquery-tmpl">
+    <ul>
+      {{each list}}<li>${$value}</li>{{/each}}
+    </ul>
+  </script>
+
+  <script id="simple-template" type="text/x-jquery-tmpl">
+    <h1>${title}</h1>
+
+    {{tmpl($data) "#bullets"}}
+  </script>
+
   <div id="container">
     <header>
 
@@ -33,6 +45,7 @@
     </footer>
   </div> <!--! end of #container -->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  <script src="js/libs/jquery.tmpl.js"></script>
   <script src="js/script.js"></script>
 
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
