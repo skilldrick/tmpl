@@ -59,6 +59,23 @@
     {{tmpl "#footer-template"}}
   </script>
 
+
+  <script id="slide-numbers-template" type="text/x-jquery-tmpl">
+    {{if current}}
+      <li class="current">
+    {{else}}
+      <li>
+    {{/if}}
+    <a href="#${slide_url}">${slide_number}</a>
+    </li>
+  </script>
+
+  <script id="normal-template" type="text/x-jquery-tmpl">
+    <div class='slide'>
+      <h1>${title}</h1>
+    </div>
+  </script>
+
   <script id="start-template" type="text/x-jquery-tmpl">
     <div class='slide'>
       <h1>${title}</h1>
@@ -71,19 +88,21 @@
     <header>
 
     </header>
+
     
     <div id="main" role="main">
 
     </div>
+
     
     <footer>
-      <ol id="slide-numbers">
-        <li class='current'><a href="#slide1">1</a></li>
-        <li><a href="#slide2">2</a></li>
-        <li><a href="#slide3">3</a></li>
-        <li><a href="#slide4">4</a></li>
+      <div class='arrow' id='left-arrow'><a href="#">&lArr;</a></div>
+      <ol id="slide-numbers" style="display:none">
       </ol>
+      <div class='arrow' id='right-arrow'><a href="#">&rArr;</a></div>
     </footer>
+    
+
   </div> <!--! end of #container -->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
   <script src="js/libs/jquery.tmpl.js"></script>
