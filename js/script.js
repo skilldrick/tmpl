@@ -166,6 +166,9 @@
           }
         }
         showSlideNumbers();
+        //syntax highlighting
+        hljs.tabReplace = '  ';
+        hljs.initHighlighting();
       });
     }
 

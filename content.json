@@ -13,7 +13,8 @@
     {
       "type": "normal",
       "url": "slide2",
-      "title": "Introduction"
+      "title": "Introduction",
+      "code":"var blah = 5;\nfunction () {\n\tblah = 6;\n\treturn blah;\n}"
     },
     {
       "type": "normal",
