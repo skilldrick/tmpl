@@ -70,17 +70,23 @@
     </li>
   </script>
 
-  <script id="normal-template" type="text/x-jquery-tmpl">
-    <div class='slide'>
-      <h1>${title}</h1>
+  <script id="slide-wrapper" type="text/x-jquery-tmpl">
+    <div class='slide' id='slide-${url}'>
+      {{html $item.html()}}
     </div>
   </script>
 
+  <script id="normal-template" type="text/x-jquery-tmpl">
+    {{wrap($data) '#slide-wrapper'}}
+      <h1>${title}</h1>
+    {{/wrap}}
+  </script>
+
   <script id="start-template" type="text/x-jquery-tmpl">
-    <div class='slide'>
+    {{wrap '#slide-wrapper'}}
       <h1>${title}</h1>
       <h2>${subtitle}</h1>
-    </div>
+    {{/wrap}}
   </script>
 
 

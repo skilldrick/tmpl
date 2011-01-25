@@ -6,12 +6,29 @@
   "slides": [
     {
       "type": "start",
+      "url": "slide1",
       "title": "jQuery.tmpl()",
       "subtitle": "No more string concatenation"
     },
     {
       "type": "normal",
+      "url": "slide2",
       "title": "Introduction"
+    },
+    {
+      "type": "normal",
+      "url": "slide3",
+      "title": "Another slide"
+    },
+    {
+      "type": "normal",
+      "url": "slide4",
+      "title": "And another one"
+    },
+    {
+      "type": "normal",
+      "url": "slide4",
+      "title": "And one more"
     }
   ]
 }
