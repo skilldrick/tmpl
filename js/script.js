@@ -9,6 +9,16 @@
       slideshow.previous();
       e.preventDefault();
     });
+    $(document).keydown(function(e){
+      if (e.keyCode == 37) { 
+        slideshow.previous();
+        return false;
+      }
+      if (e.keyCode == 39) { 
+        slideshow.next();
+        return false;
+      }
+    });
     //to make this cross-browser this needs to change to
     //Ben Alman's hashchange plugin.
     $(window).bind('hashchange', function () {
@@ -24,6 +34,8 @@
 
   var slideshow = (function () {
     var slides = [];
+    var navDisabled = false;
+    var timeout;
 
     function getSlideNumberFromHash(hash) {
       url = hash.slice(1); //drop '#' from URL
@@ -106,13 +118,29 @@
     }
 
     function previous() {
+      console.log(navDisabled);
       //When hash changes, hashchanged is fired. This then calls gotoSlide
-      document.location.hash = '#' + slides[currentSlide - 1].url;
+      if (!navDisabled) {
+        document.location.hash = '#' + slides[currentSlide - 1].url;
+        navDisabled = true;
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+          navDisabled = false;
+        }, 400);
+      }
     }
 
     function next() {
+      console.log(navDisabled);
       //When hash changes, hashchanged is fired. This then calls gotoSlide
-      document.location.hash = '#' + slides[currentSlide + 1].url;
+      if (!navDisabled) {
+        document.location.hash = '#' + slides[currentSlide + 1].url;
+        navDisabled = true;
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+          navDisabled = false;
+        }, 400);
+      }
     }
 
 
