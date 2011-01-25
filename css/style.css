@@ -210,7 +210,7 @@ footer {
 #slide-numbers {
   border: 2px solid #000;
   margin: 0;
-  margin: 0 1em 0 1em;
+  margin: 0 1em 2em 1em;
   background-image: -webkit-gradient(
     linear,
     left bottom,
@@ -302,6 +302,12 @@ h2 {
   text-align: center;
 }
 
+
+#credits {
+  clear: both;
+  color: #555;
+  font-size: 80%;
+}
 
 
 

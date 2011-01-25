@@ -38,6 +38,7 @@
         left: 18
       }).addClass('current');
       currentSlide++;
+      changeSlide();
     }
 
     function previousSlide() {
@@ -51,7 +52,15 @@
         left: 18
       }).addClass('current');
       currentSlide--;
+      changeSlide();
     }
+
+    function changeSlide() {
+      var url = slides[currentSlide].url;
+      $('#slide-numbers li').removeClass('current');
+      $('#slide-numbers a[href=#' + url + ']').closest('li').addClass('current');
+    }
+
     
     function gotoSlide(num) {
       //while not currentslide, nextslide (or previous)
