@@ -28,6 +28,9 @@
     }
     
     function nextSlide() {
+      if (currentSlide >= slides.length - 1) {
+        return;
+      }
       $('.slide.current').animate({
         left: -900
       }).removeClass('current');
@@ -38,6 +41,9 @@
     }
 
     function previousSlide() {
+      if (currentSlide <= 0) {
+        return;
+      }
       $('.slide.current').animate({
         left: 900
       }).removeClass('current');
@@ -48,7 +54,7 @@
     }
     
     function gotoSlide(num) {
-
+      //while not currentslide, nextslide (or previous)
     }
 
     function init() {
