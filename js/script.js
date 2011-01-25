@@ -1,4 +1,8 @@
 (function ($) {
+  $(document).ready(function () {
+    setupHandlers();
+    slideshow.init();
+  });
   
   function setupHandlers() {
     $("#right-arrow").click(function (e) {
@@ -10,10 +14,12 @@
       e.preventDefault();
     });
     $(document).keydown(function(e){
+      //left arrow key
       if (e.keyCode == 37) { 
         slideshow.previous();
         return false;
       }
+      //right arrow key
       if (e.keyCode == 39) { 
         slideshow.next();
         return false;
@@ -27,15 +33,13 @@
 
   }
 
-  $(document).ready(function () {
-    setupHandlers();
-    slideshow.init();
-  });
 
   var slideshow = (function () {
     var slides = [];
+    var destinationSlide;
     var navDisabled = false;
     var timeout;
+    var queue = [];
 
     function getSlideNumberFromHash(hash) {
       url = hash.slice(1); //drop '#' from URL
@@ -52,51 +56,23 @@
       for (var i = 0, len = slides.length; i < len; i++) {
         slide_numbers.push({slide_url: slides[i].url, slide_number: i + 1});
       }
-      slide_numbers[currentSlide].current = true;
+      slide_numbers[destinationSlide].current = true;
       $("#slide-numbers-template").tmpl(slide_numbers).appendTo('#slide-numbers');
       $("#slide-numbers").show();
     }
     
-    //Really need to refactor these two into one function - this is getting ridiculous
-    function nextSlide(callback) {
-      if (currentSlide >= slides.length - 1) {
-        return;
-      }
-      if (callback === undefined) {
-        callback = new Function();
-      }
-      $('.slide.current').animate({
-        left: -900
-      }, callback).removeClass('current');
-      $('#slide-' + slides[currentSlide + 1].url).animate({
-        left: 18
-      }).addClass('current');
-      currentSlide++;
-      slideChanged();
-    }
-
-    function previousSlide(callback) {
-      if (currentSlide <= 0) {
-        return;
-      }
-      $('.slide.current').animate({
-        left: 900
-      }, callback).removeClass('current');
-      $('#slide-' + slides[currentSlide - 1].url).animate({
-        left: 18
-      }).addClass('current');
-      currentSlide--;
-      slideChanged();
-    }
-
+    //update list of slides at bottom
     function slideChanged() {
       var url = slides[currentSlide].url;
       $('#slide-numbers li').removeClass('current');
       $('#slide-numbers a[href=#' + url + ']').closest('li').addClass('current');
     }
     
+    //Add the next direction to the animation queue, and update the 
+    //destination slide number
     function gotoSlide(numOrUrl) {
       var num;
+      var shouldAnimate = false;
       if (typeof numOrUrl === "string") {
         num = getSlideNumberFromHash(numOrUrl);
       }
@@ -104,65 +80,85 @@
         num = numOrUrl;
       }
 
-      //recursively change slide, waiting for each animation to complete
-      if (num < currentSlide) {
-        previousSlide(function () {
-          gotoSlide(num);
-        });
+      //Only start animating if the queue is empty
+      //If it's not empty, it should already be animating.
+      if (queue.length === 0) {
+        shouldAnimate = true;
       }
-      else if (num > currentSlide) {
-        nextSlide(function () {
-          gotoSlide(num);
-        });
+
+      while (num !== destinationSlide) {
+        if (destinationSlide < num) {
+          queue.push(1);
+          destinationSlide++;
+        }
+        else {
+          queue.push(-1);
+          destinationSlide--;
+        }
+      }
+
+      if (shouldAnimate) {
+        animate();
       }
     }
 
-    /*
-    * A better way to handle the navigation would be to have a queue of
-    * slide numbers. Then the animations would work on the queue, with
-    * the completion function of the animation calling the animation
-    * on the next queued item. This would clean everything up a lot.
-    */
+    //Check the next direction in the animation queue, then
+    //animate slides in that direction.
+    function animate() {
+      var nextDirection = queue[0];
+      //if queue is empty stop animation
+      if (nextDirection === undefined) {
+        return;
+      }
+
+      currentSlide += nextDirection;
+
+      $('.slide.current').animate({
+        left: -900 * nextDirection //slide left or right depending on direction
+      }, function () {
+        //after current animation, drop the current queue item and animate again
+        queue.shift();
+        animate();
+      }).removeClass('current');
+      $('#slide-' + slides[currentSlide].url).animate({
+        left: 18
+      }).addClass('current');
+
+      slideChanged();
+    }
+
+    //Left arrow or key was pressed
     function previous() {
-      console.log(navDisabled);
-      //When hash changes, hashchanged is fired. This then calls gotoSlide
-      if (!navDisabled) {
-        document.location.hash = '#' + slides[currentSlide - 1].url;
-        navDisabled = true;
-        clearTimeout(timeout);
-        timeout = setTimeout(function () {
-          navDisabled = false;
-        }, 400);
+      if (destinationSlide > 0) {
+        //When hash changes, hashchanged is fired. This then calls gotoSlide
+        document.location.hash = '#' + slides[destinationSlide - 1].url;
       }
     }
 
+    //Right arrow or key was pressed
     function next() {
-      console.log(navDisabled);
-      //When hash changes, hashchanged is fired. This then calls gotoSlide
-      if (!navDisabled) {
-        document.location.hash = '#' + slides[currentSlide + 1].url;
-        navDisabled = true;
-        clearTimeout(timeout);
-        timeout = setTimeout(function () {
-          navDisabled = false;
-        }, 400);
+      if (destinationSlide < slides.length - 1) {
+        //When hash changes, hashchanged is fired. This then calls gotoSlide
+        document.location.hash = '#' + slides[destinationSlide + 1].url;
       }
     }
 
-
+    //Initialise slideshow by loading content as JSON.
+    //If there is a slide number in the hash, start there.
     function init() {
       $.getJSON('content.json', function (data) {
         slides = data.slides;
         var tmpl_selector;
         var slide;
-        currentSlide = getSlideNumberFromHash(document.location.hash);
+        destinationSlide = getSlideNumberFromHash(document.location.hash);
+        currentSlide = destinationSlide;
         for (var i = 0, len = slides.length; i < len; i++) {
           tmpl_selector = '#' + slides[i].type + '-template';
           slide = $(tmpl_selector).tmpl(slides[i]).appendTo('#main');
-          if (i == currentSlide) {
+          if (i == destinationSlide) {
             slide.addClass('current');
           }
-          else if (i < currentSlide) {
+          else if (i < destinationSlide) {
             slide.addClass('previous');
           }
           else {
@@ -173,6 +169,7 @@
       });
     }
 
+    //Expose the public API of slideshow
     return {
       next: next,
       previous: previous,
