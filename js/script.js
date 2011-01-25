@@ -1,21 +1,39 @@
 (function ($) {
   
-
-  $(document).ready(function () {
+  function setupHandlers() {
     $("#right-arrow").click(function (e) {
-      slideshow.nextSlide();
+      slideshow.next();
       e.preventDefault();
     });
     $("#left-arrow").click(function (e) {
-      slideshow.previousSlide();
+      slideshow.previous();
       e.preventDefault();
     });
+    //to make this cross-browser this needs to change to
+    //Ben Alman's hashchange plugin.
+    $(window).bind('hashchange', function () {
+      slideshow.gotoSlide(document.location.hash);
+    });
+
+  }
+
+  $(document).ready(function () {
+    setupHandlers();
     slideshow.init();
   });
 
   var slideshow = (function () {
     var slides = [];
-    var currentSlide = 0;
+
+    function getSlideNumberFromHash(hash) {
+      url = hash.slice(1); //drop '#' from URL
+      for (var i = 0, len = slides.length; i < len; i++) {
+        if (slides[i].url === url) {
+          return i;
+        }
+      }
+      return 0;
+    }
 
     function showSlideNumbers() {
       var slide_numbers = [];
@@ -27,55 +45,91 @@
       $("#slide-numbers").show();
     }
     
-    function nextSlide() {
+    //Really need to refactor these two into one function - this is getting ridiculous
+    function nextSlide(callback) {
       if (currentSlide >= slides.length - 1) {
         return;
       }
+      if (callback === undefined) {
+        callback = new Function();
+      }
       $('.slide.current').animate({
         left: -900
-      }).removeClass('current');
+      }, callback).removeClass('current');
       $('#slide-' + slides[currentSlide + 1].url).animate({
         left: 18
       }).addClass('current');
       currentSlide++;
-      changeSlide();
+      slideChanged();
     }
 
-    function previousSlide() {
+    function previousSlide(callback) {
       if (currentSlide <= 0) {
         return;
       }
       $('.slide.current').animate({
         left: 900
-      }).removeClass('current');
+      }, callback).removeClass('current');
       $('#slide-' + slides[currentSlide - 1].url).animate({
         left: 18
       }).addClass('current');
       currentSlide--;
-      changeSlide();
+      slideChanged();
     }
 
-    function changeSlide() {
+    function slideChanged() {
       var url = slides[currentSlide].url;
       $('#slide-numbers li').removeClass('current');
       $('#slide-numbers a[href=#' + url + ']').closest('li').addClass('current');
     }
-
     
-    function gotoSlide(num) {
-      //while not currentslide, nextslide (or previous)
+    function gotoSlide(numOrUrl) {
+      var num;
+      if (typeof numOrUrl === "string") {
+        num = getSlideNumberFromHash(numOrUrl);
+      }
+      else {
+        num = numOrUrl;
+      }
+
+      //recursively change slide, waiting for each animation to complete
+      if (num < currentSlide) {
+        previousSlide(function () {
+          gotoSlide(num);
+        });
+      }
+      else if (num > currentSlide) {
+        nextSlide(function () {
+          gotoSlide(num);
+        });
+      }
     }
+
+    function previous() {
+      //When hash changes, hashchanged is fired. This then calls gotoSlide
+      document.location.hash = '#' + slides[currentSlide - 1].url;
+    }
+
+    function next() {
+      //When hash changes, hashchanged is fired. This then calls gotoSlide
+      document.location.hash = '#' + slides[currentSlide + 1].url;
+    }
+
 
     function init() {
       $.getJSON('content.json', function (data) {
         slides = data.slides;
         var tmpl_selector;
         var slide;
+        currentSlide = getSlideNumberFromHash(document.location.hash);
         for (var i = 0, len = slides.length; i < len; i++) {
           tmpl_selector = '#' + slides[i].type + '-template';
           slide = $(tmpl_selector).tmpl(slides[i]).appendTo('#main');
           if (i == currentSlide) {
             slide.addClass('current');
+          }
+          else if (i < currentSlide) {
+            slide.addClass('previous');
           }
           else {
             slide.addClass('next');
@@ -86,11 +140,11 @@
     }
 
     return {
-      nextSlide: nextSlide,
-      previousSlide: previousSlide,
+      next: next,
+      previous: previous,
       gotoSlide: gotoSlide,
       init: init
-    }
+    };
   })();
 
 })(jQuery);
