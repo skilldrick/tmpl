@@ -117,6 +117,12 @@
       }
     }
 
+    /*
+    * A better way to handle the navigation would be to have a queue of
+    * slide numbers. Then the animations would work on the queue, with
+    * the completion function of the animation calling the animation
+    * on the next queued item. This would clean everything up a lot.
+    */
     function previous() {
       console.log(navDisabled);
       //When hash changes, hashchanged is fired. This then calls gotoSlide
