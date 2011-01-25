@@ -8,28 +8,81 @@
       "type": "start",
       "url": "slide1",
       "title": "jQuery.tmpl()",
-      "subtitle": "No more string concatenation"
+      "subtitle": "No More String Concatenation"
     },
     {
       "type": "normal",
       "url": "slide2",
-      "title": "Introduction",
-      "code":"var blah = 5;\nfunction () {\n\tblah = 6;\n\treturn blah;\n}"
+      "title": "Templating - Why?",
+      "list": [
+        "Avoid PHP-style mix of logic, content and presentation",
+        "Keep content out of the layout",
+        "Separation of concerns"
+      ]
     },
     {
       "type": "normal",
       "url": "slide3",
-      "title": "Another slide"
+      "title": "Why Client-side Templating?",
+      "list": [
+        "Keep UI responsive",
+        "Sending HTML updates via Ajax is inefficient",
+        "Faster computers and interpreters",
+        "Makes sense to do more work in the browser"
+      ]
     },
     {
       "type": "normal",
       "url": "slide4",
-      "title": "And another one"
+      "title": "Why jQuery.tmpl()?",
+      "list": [
+        "jQuery is the biggest JS library at the moment",
+        "jQuery.tmpl() is its official templating plugin",
+        "Developed by Microsoft, under MIT/GPL licence"
+      ]
     },
     {
       "type": "normal",
       "url": "slide5",
-      "title": "And one more"
+      "title": "How Does it Work?",
+      "text": "Start with some data:",
+      "code": "var person = { name: 'Dave' };"
+    },
+    {
+      "type": "normal",
+      "url": "slide6",
+      "title": "How Does it Work?",
+      "text": "Make a template for that data:",
+      "code": "<script id='my-first-template'\n\ttype='text/x-jquery-tmpl'>\n\t<p>Hello ${name}!</p>\n</script>"
+    },
+    {
+      "type": "normal",
+      "url": "slide7",
+      "title": "How Does it Work?",
+      "text": "Combine the data with the template and add to the page:",
+      "code": "$('#my-first-template')\n\t.tmpl(person).appendTo('body');"
+    },
+    {
+      "type": "normal",
+      "url": "slide8",
+      "title": "Template Tags",
+      "list": [
+        "${}",
+        "{{if}} / {{else}}",
+        "{{each}}",
+        "{{tmpl}}",
+        "{{wrap}}"
+      ]
+    },
+    {
+      "type": "normal",
+      "url": "slide9",
+      "title": "${}",
+      "text": "Used for inserting data on the page.",
+      "code": "//data:\nvar data = { name: 'Dave', cat: { name: 'Sparky' } }\n//template:\n<div>My name is ${name} and my cat is called ${cat.name}</div>"
     }
+
+
+    
   ]
 }

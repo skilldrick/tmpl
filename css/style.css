@@ -287,16 +287,25 @@ footer {
   left: -900px;
 }
 
+.slide p, .slide li {
+  margin-left: 1em;
+  margin-right: 1em;
+  font-size: 300%;
+}
 
+pre {
+  font-size: 190%;
+}
 
 h1 {
-  margin-top: 1em;
+  margin-top: 0.5em;
   font-size: 500%;
   margin-bottom: 1em;
   text-align: center
 }
 
 h1.main {
+  margin-top: 1em;
   font-size: 700%;
 }
 
@@ -310,10 +319,6 @@ h2.main {
   font-size: 500%;
 }
 
-
-pre {
-  font-size: 150%;
-}
 
 
 #credits {

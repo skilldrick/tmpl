@@ -20,12 +20,6 @@
 
 <body lang="en" >
 
-  <!-- use {{tmpl($data) "#bullet-list"}} to call -->
-  <script id="bullet-list" type="text/x-jquery-tmpl">
-    <ul>
-      {{each list}}<li>${$value}</li>{{/each}}
-    </ul>
-  </script>
 
   <!-- use {{tmpl(list) "#bullet-item"}} to render each item 
   where `list` is an array of strings -->
@@ -43,19 +37,6 @@
     <h1>${$item.parent.doSomethingElse(title)}</h1>
   </script>
 
-  <script id="simple-template" type="text/x-jquery-tmpl">
-    <h1>${title}</h1>
-    {{tmpl($data) "#call-global-function"}}
-    {{tmpl($data) "#call-nonglobal-function"}}
-    {{tmpl($data) "#bullet-list"}}
-    <ol>
-      {{tmpl(list) "#bullet-item"}}
-    </ol>
-
-    {{tmpl "#footer-template"}}
-  </script>
-
-
   <script id="slide-numbers-template" type="text/x-jquery-tmpl">
     {{if current}}
       <li class="current">
@@ -72,12 +53,23 @@
     </div>
   </script>
 
+  <script id="bullet-list" type="text/x-jquery-tmpl">
+    <ul>
+      {{each list}}<li>${$value}</li>{{/each}}
+    </ul>
+  </script>
+
   <script id="normal-template" type="text/x-jquery-tmpl">
     {{wrap($data) '#slide-wrapper'}}
       <h1>${title}</h1>
-      <p>${content}</p>
+      {{if text}}
+        <p>${text}</p>
+      {{/if}}
+      {{if list}}
+        {{tmpl($data) "#bullet-list"}}
+      {{/if}}
       {{if code}}
-        <pre><code>${code}</code></pre>
+        <pre><code class="javascript">${code}</code></pre>
       {{/if}}
     {{/wrap}}
   </script>
