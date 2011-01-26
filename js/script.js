@@ -105,6 +105,8 @@
     //Check the next direction in the animation queue, then
     //animate slides in that direction.
     function animate() {
+      //TODO: Base animation speed on queue length, with sensible
+      //lower and upper bounds
       var nextDirection = queue[0];
       //if queue is empty stop animation
       if (nextDirection === undefined) {
