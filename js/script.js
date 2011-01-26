@@ -28,6 +28,10 @@
     $('#main').delegate('.slide', 'click', function () {
       slideshow.next();
     });
+    $('#main').delegate('a', 'click', function (e) {
+      //Clicks on links shouldn't fire '.slide'.click() above
+      e.stopPropagation();
+    });
     $(window).hashchange(function () {
       slideshow.gotoSlide(document.location.hash);
     });

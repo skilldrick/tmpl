@@ -47,7 +47,7 @@
     {{wrap($data) '#slide-wrapper'}}
       <h1>${title}</h1>
       {{if text}}
-        <p>${text}</p>
+        <p>{{html text}}</p>
       {{/if}}
       {{if list}}
         {{tmpl($data) "#bullet-list"}}
