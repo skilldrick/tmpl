@@ -61,11 +61,20 @@
       $("#slide-numbers").show();
     }
     
-    //update list of slides at bottom
     function slideChanged() {
       var url = slides[currentSlide].url;
       $('#slide-numbers li').removeClass('current');
       $('#slide-numbers a[href=#' + url + ']').closest('li').addClass('current');
+      setTitle();
+    }
+
+    function setTitle() {
+      if (currentSlide === 0) {
+        document.title = 'jQuery.tmpl() presentation';
+      }
+      else {
+        document.title = 'jQuery.tmpl() - ' + slides[currentSlide].title;
+      }
     }
     
     //Add the next direction to the animation queue, and update the 
@@ -149,11 +158,14 @@
     //If there is a slide number in the hash, start there.
     function init() {
       $.getJSON('content.json', function (data) {
+        //TODO: add title text to slide numbers
+        //Also, set page title on slide change
         slides = data.slides;
         var tmpl_selector;
         var slide;
         destinationSlide = getSlideNumberFromHash(document.location.hash);
         currentSlide = destinationSlide;
+        setTitle();
         for (var i = 0, len = slides.length; i < len; i++) {
           tmpl_selector = '#' + slides[i].type + '-template';
           slide = $(tmpl_selector).tmpl(slides[i]).appendTo('#main');
