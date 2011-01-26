@@ -54,7 +54,7 @@
     function showSlideNumbers() {
       var slide_numbers = [];
       for (var i = 0, len = slides.length; i < len; i++) {
-        slide_numbers.push({slide_url: slides[i].url, slide_number: i + 1});
+        slide_numbers.push({slide_url: slides[i].url, slide_number: i + 1, slide_title: slides[i].title});
       }
       slide_numbers[destinationSlide].current = true;
       $("#slide-numbers-template").tmpl(slide_numbers).appendTo('#slide-numbers');
@@ -158,8 +158,6 @@
     //If there is a slide number in the hash, start there.
     function init() {
       $.getJSON('content.json', function (data) {
-        //TODO: add title text to slide numbers
-        //Also, set page title on slide change
         slides = data.slides;
         var tmpl_selector;
         var slide;
