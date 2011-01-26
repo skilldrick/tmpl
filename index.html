@@ -20,23 +20,7 @@
 
 <body lang="en" >
 
-
-  <!-- use {{tmpl(list) "#bullet-item"}} to render each item 
-  where `list` is an array of strings -->
-  <script id="bullet-item" type="text/x-jquery-tmpl">
-    <li>${$data}</li>
-  </script>
-
-  <!-- use {{tmpl($data) "#call-function"}} to call -->
-  <script id="call-global-function" type="text/x-jquery-tmpl">
-    <h1>${doSomething(title)}</h1>
-  </script>
-
-  <!-- $item.parent instead of $item here because nested -->
-  <script id="call-nonglobal-function" type="text/x-jquery-tmpl">
-    <h1>${$item.parent.doSomethingElse(title)}</h1>
-  </script>
-
+  <!-- Template for numbers under slideshow -->
   <script id="slide-numbers-template" type="text/x-jquery-tmpl">
     {{if current}}
       <li class="current">

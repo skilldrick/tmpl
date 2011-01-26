@@ -79,7 +79,46 @@
       "url": "slide9",
       "title": "${}",
       "text": "Used for inserting data on the page.",
-      "code": "//data:\nvar data = { name: 'Dave', cat: { name: 'Sparky' } }\n//template:\n<div>My name is ${name} and my cat is called ${cat.name}</div>"
+      "code": "//data:\nvar data = { name: 'Dave', cat: { name: 'Sparky' } }\n\n//template:\n<div>\n\t<p>My name is ${name} and my\n\tcat is called ${cat.name}</p>\n</div>\n\n//Alternative syntax:\n<p>Welcome back {{= name}}!</p>"
+    },
+    {
+      "type": "normal",
+      "url": "slide10",
+      "title": "${}",
+      "text": "It is possible call simple functions and methods in ${}.",
+      "code": "//custom function:\nfunction fun(str) { return str + 'y'; }\n\n//template:\n<div>\n\t<p>I SAID MY NAME IS ${name.toUpperCase()}!</p>\n\t<p>But you can call me ${fun(name)}</p>\n</div>"
+    },
+    {
+      "type": "normal",
+      "url": "slide11",
+      "title": "{{if}} / {{else}}",
+      "text": "Used for conditional execution of template code.",
+      "code": "//data:\nvar data = { name: 'Dave', important: true }\n\n//template:\n{{if important}}\n\t<p>It's our most valued customer, ${name}!</p>\n{{/if}}\n{{else}}\n\t<p>Hi there ${name}.</p>\n{{/else}}"
+    },
+    {
+      "type": "normal",
+      "url": "slide12",
+      "title": "{{each}}"
+    },
+    {
+      "type": "normal",
+      "url": "slide13",
+      "title": "{{tmpl}}"
+    },
+    {
+      "type": "normal",
+      "url": "slide14",
+      "title": "{{wrap}}"
+    },
+    {
+      "type": "normal",
+      "url": "slide15",
+      "title": "Rendering collections",
+      "list": [
+        "Pass array to .tmpl() - each item will be rendered",
+        "Inside template, pass array to {{tmpl}} for sub-template",
+        "Or pass array to {{each}} to iterate within the template"
+      ]
     }
 
 
