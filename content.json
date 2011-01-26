@@ -46,21 +46,30 @@
       "url": "slide5",
       "title": "How Does it Work? (1)",
       "text": "Start with some data:",
-      "code": "var person = { name: 'Dave' };"
+      "code": {
+        "language": "javascript",
+        "content": "var person = { name: 'Dave' };"
+      }
     },
     {
       "type": "normal",
       "url": "slide6",
       "title": "How Does it Work? (2)",
       "text": "Make a template for that data:",
-      "code": "<script id='my-first-template'\n\ttype='text/x-jquery-tmpl'>\n\t<p>Hello ${name}!</p>\n</script>"
+      "code": {
+        "language": "html",
+        "content": "<script id='my-first-template'\n\ttype='text/x-jquery-tmpl'>\n\t<p>Hello ${name}!</p>\n</script>"
+      }
     },
     {
       "type": "normal",
       "url": "slide7",
       "title": "How Does it Work? (3)",
       "text": "Combine the data with the template and add to the page:",
-      "code": "$('#my-first-template')\n\t.tmpl(person).appendTo('body');"
+      "code": {
+        "language": "javascript",
+        "content": "$('#my-first-template')\n\t.tmpl(person).appendTo('body');"
+      }
     },
     {
       "type": "normal",
@@ -68,6 +77,7 @@
       "title": "Template Tags",
       "list": [
         "${}",
+        "{{html}}",
         "{{if}} / {{else}}",
         "{{each}}",
         "{{tmpl}}",
@@ -79,42 +89,131 @@
       "url": "slide9",
       "title": "${}",
       "text": "Used for inserting data on the page.",
-      "code": "//data:\nvar data = { name: 'Dave',\n\tcat: { name: 'Sparky' } };\n\n//template:\n<div>\n\t<p>My name is ${name} and my\n\tcat is called ${cat.name}</p>\n</div>\n\n//Alternative syntax:\n<p>Welcome back {{= name}}!</p>"
+      "code": [
+        {
+          "language": "javascript",
+          "content": "//data:\nvar data = { name: 'Dave',\n\tcat: { name: 'Sparky' } };"
+        },
+        {
+          "language": "html",
+          "content": "<!--template:-->\n<div>\n\t<p>My name is ${name} and my\n\tcat is called ${cat.name}</p>\n</div>"
+        },
+        {
+          "language": "html",
+          "content": "<!--alternative syntax:-->\n<p>Welcome back {{= name}}!</p>"
+        }
+      ]
     },
     {
       "type": "normal",
       "url": "slide10",
       "title": "${}",
       "text": "It is possible call simple functions and methods in ${}.",
-      "code": "//custom function:\nfunction fun(str) { return str + 'y'; }\n\n//template:\n<div>\n\t<p>I SAID MY NAME IS ${name.toUpperCase()}!</p>\n\t<p>But you can call me ${fun(name)}</p>\n</div>"
+      "code": [
+        {
+          "language": "javascript",
+          "content": "//custom function:\nfunction fun(str) { return str + 'y'; }"
+        },
+        {
+          "language": "html",
+          "content": "<!--template:-->\n<div>\n\t<p>I SAID MY NAME IS ${name.toUpperCase()}!</p>\n\t<p>But you can call me ${fun(name)}</p>\n</div>"
+        }
+      ]
     },
     {
       "type": "normal",
       "url": "slide11",
-      "title": "{{if}} / {{else}}",
-      "text": "Used for conditional execution of template code.",
-      "code": "//data:\nvar data = { name: 'Dave', important: true };\n\n//template:\n{{if important}}\n\t<p>It's our most valued customer, ${name}!</p>\n{{/if}}\n{{else}}\n\t<p>Hi there ${name}.</p>\n{{/else}}"
+      "title": "{{html}}",
+      "text": "${} escapes HTML, but {{html}} passes it through untouched.",
+      "code": [
+        {
+          "language": "javascript",
+          "content": "//data:\n{ greeting:\n\t'Hello! How <em>nice</em> to see you!'\n};"
+        },
+        {
+          "language": "html",
+          "content": "<!--template:-->\n<p>{{html greeting}}</p>"
+        }
+      ]
     },
     {
       "type": "normal",
       "url": "slide12",
-      "title": "{{each}}",
-      "text": "Used to iterate over an array within a template.",
-      "code": "//data:\n var data = { numbers: [4, 8, 15, 16, 23, 42] };\n\n//template:\n{{each numbers}}\n\t<p>${$index + 1}Please enter the number ${$item} in your terminal.</p>\n{{/each}}"
+      "title": "{{if}} / {{else}}",
+      "text": "Used for conditional execution of template code.",
+      "code": [
+        {
+          "language": "javascript",
+          "content": "//data:\nvar data = { name: 'Dave', important: true };"
+        },
+        {
+          "language": "html",
+          "content": "<!--template:-->\n{{if important}}\n\t<p>It's our most valued customer, ${name}!</p>\n{{/if}}\n{{else}}\n\t<p>Hi there ${name}.</p>\n{{/else}}"
+        }
+      ]
     },
     {
       "type": "normal",
       "url": "slide13",
-      "title": "{{tmpl}}"
+      "title": "{{each}}",
+      "text": "Used to iterate over an array within a template.",
+      "code": [
+        {
+          "language": "javascript",
+          "content": "//data:\nvar data = { numbers: [4, 8, 15, 16, 23, 42] };"
+        },
+        {
+          "language": "html",
+          "content": "<!--template:-->\n{{each numbers}}\n\t<p>${$index + 1}. Please enter the number ${$item} in your terminal.</p>\n{{/each}}"
+        }
+      ]
     },
     {
       "type": "normal",
       "url": "slide14",
-      "title": "{{wrap}}"
+      "title": "{{tmpl}}",
+      "text": "Used to render sub-templates. Can be passed a single item or an array.",
+      "code": [
+        {
+          "language": "javascript",
+          "content": "var data = { name: 'Dave',\n\tcats: ['Mittens', 'Fluffy', 'Bob'] };\n"
+        },
+        {
+          "language": "html",
+          "content": "<script id='inner' type='text/x-jquery-tmpl'>\n\t<p>${$data}</p>\n</script>"
+        },
+        {
+          "language": "html",
+          "content": "<script id='outer' type='text/x-jquery-tmpl'>\n\t<p>My name is ${name} and these are my cats:</p>\n\t{{tmpl cats}}\n</script>"
+        }
+      ]
     },
     {
       "type": "normal",
       "url": "slide15",
+      "title": "{{wrap}}",
+      "content": "Used to wrap content in one template with markup in another.",
+      "code": [
+        {
+          "language": "javascript",
+          "size": "small",
+          "content": "//data\nvar data = { name: 'Dave' };"
+        },
+        {
+          "language": "html",
+          "size": "small",
+          "content": "<!--wrapper template-->\n<script id='wrapper' type='text/x-jquery-tmpl'>\n\t<div class='person-wrapper'>\n\t\t{{html $item.html()}}\n\t</div>\n</script>"
+        },
+        {
+          "language": "html",
+          "size": "small",
+          "content": "<!--wrapped template-->\n<script id='wrapped' type='text/x-jquery-tmpl'>\n\t{{wrap '#wrapper'}}\n\t\t<p>${name}</p>\n\t{{/wrap}}\n</script>"
+        }
+      ]
+    },
+    {
+      "type": "normal",
+      "url": "slide16",
       "title": "Template meta-variables",
       "text": "There are some special variables that can be used within templates:",
       "list": [
@@ -126,7 +225,7 @@
     },
     {
       "type": "normal",
-      "url": "slide16",
+      "url": "slide17",
       "title": "Rendering collections",
       "list": [
         "Pass array to .tmpl() - each item will be rendered",
