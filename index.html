@@ -39,8 +39,12 @@
 
   <script id="bullet-list" type="text/x-jquery-tmpl">
     <ul>
-      {{each list}}<li>${$value}</li>{{/each}}
+      {{each list}}<li>{{html $value}}</li>{{/each}}
     </ul>
+  </script>
+
+  <script id="code-snippet" type="text/x-jquery-tmpl">
+    <pre><code class="${language} ${size}">${content}</code></pre>
   </script>
 
   <script id="normal-template" type="text/x-jquery-tmpl">
@@ -53,7 +57,7 @@
         {{tmpl($data) "#bullet-list"}}
       {{/if}}
       {{if code}}
-        <pre><code class="javascript">${code}</code></pre>
+        {{tmpl(code) "#code-snippet"}}
       {{/if}}
     {{/wrap}}
   </script>
