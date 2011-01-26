@@ -25,9 +25,10 @@
         return false;
       }
     });
-    //to make this cross-browser this needs to change to
-    //Ben Alman's hashchange plugin.
-    $(window).bind('hashchange', function () {
+    $('#main').delegate('.slide', 'click', function () {
+      slideshow.next();
+    });
+    $(window).hashchange(function () {
       slideshow.gotoSlide(document.location.hash);
     });
 
