@@ -25,9 +25,14 @@
         return false;
       }
     });
-    //to make this cross-browser this needs to change to
-    //Ben Alman's hashchange plugin.
-    $(window).bind('hashchange', function () {
+    $('#main').delegate('.slide', 'click', function () {
+      slideshow.next();
+    });
+    $('#main').delegate('a', 'click', function (e) {
+      //Clicks on links shouldn't fire '.slide'.click() above
+      e.stopPropagation();
+    });
+    $(window).hashchange(function () {
       slideshow.gotoSlide(document.location.hash);
     });
 
@@ -54,18 +59,27 @@
     function showSlideNumbers() {
       var slide_numbers = [];
       for (var i = 0, len = slides.length; i < len; i++) {
-        slide_numbers.push({slide_url: slides[i].url, slide_number: i + 1});
+        slide_numbers.push({slide_url: slides[i].url, slide_number: i + 1, slide_title: slides[i].title});
       }
       slide_numbers[destinationSlide].current = true;
       $("#slide-numbers-template").tmpl(slide_numbers).appendTo('#slide-numbers');
       $("#slide-numbers").show();
     }
     
-    //update list of slides at bottom
     function slideChanged() {
       var url = slides[currentSlide].url;
       $('#slide-numbers li').removeClass('current');
       $('#slide-numbers a[href=#' + url + ']').closest('li').addClass('current');
+      setTitle();
+    }
+
+    function setTitle() {
+      if (currentSlide === 0) {
+        document.title = 'jQuery.tmpl() presentation';
+      }
+      else {
+        document.title = 'jQuery.tmpl() - ' + slides[currentSlide].title;
+      }
     }
     
     //Add the next direction to the animation queue, and update the 
@@ -162,6 +176,7 @@
         var slide;
         destinationSlide = getSlideNumberFromHash(document.location.hash);
         currentSlide = destinationSlide;
+        setTitle();
         for (var i = 0, len = slides.length; i < len; i++) {
           tmpl_selector = '#' + slides[i].type + '-template';
           slide = $(tmpl_selector).tmpl(slides[i]).appendTo('#main');

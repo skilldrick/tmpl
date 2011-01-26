@@ -44,21 +44,21 @@
     {
       "type": "normal",
       "url": "slide5",
-      "title": "How Does it Work?",
+      "title": "How Does it Work? (1)",
       "text": "Start with some data:",
       "code": "var person = { name: 'Dave' };"
     },
     {
       "type": "normal",
       "url": "slide6",
-      "title": "How Does it Work?",
+      "title": "How Does it Work? (2)",
       "text": "Make a template for that data:",
       "code": "<script id='my-first-template'\n\ttype='text/x-jquery-tmpl'>\n\t<p>Hello ${name}!</p>\n</script>"
     },
     {
       "type": "normal",
       "url": "slide7",
-      "title": "How Does it Work?",
+      "title": "How Does it Work? (3)",
       "text": "Combine the data with the template and add to the page:",
       "code": "$('#my-first-template')\n\t.tmpl(person).appendTo('body');"
     },
