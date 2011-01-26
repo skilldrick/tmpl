@@ -73,6 +73,8 @@
     function gotoSlide(numOrUrl) {
       var num;
       var shouldAnimate = false;
+      var instantAnimation = false;
+
       if (typeof numOrUrl === "string") {
         num = getSlideNumberFromHash(numOrUrl);
       }
@@ -86,6 +88,12 @@
         shouldAnimate = true;
       }
 
+      //If difference is greater than 1, don't animate
+      if (Math.abs(num - destinationSlide) > 1) {
+        instantAnimation = true;
+      }
+
+
       while (num !== destinationSlide) {
         if (destinationSlide < num) {
           queue.push(1);
@@ -98,13 +106,14 @@
       }
 
       if (shouldAnimate) {
-        animate();
+        animate(instantAnimation);
       }
     }
 
     //Check the next direction in the animation queue, then
     //animate slides in that direction.
-    function animate() {
+    function animate(instant) {
+      var duration = instant ? 1 : 300;
       var nextDirection = queue[0];
       //if queue is empty stop animation
       if (nextDirection === undefined) {
@@ -115,14 +124,15 @@
 
       $('.slide.current').animate({
         left: -900 * nextDirection //slide left or right depending on direction
-      }, function () {
+      }, duration, function () {
         //after current animation, drop the current queue item and animate again
         queue.shift();
-        animate();
+        animate(instant);
       }).removeClass('current');
+
       $('#slide-' + slides[currentSlide].url).animate({
         left: 18
-      }).addClass('current');
+      }, duration).addClass('current');
 
       slideChanged();
     }
