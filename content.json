@@ -13,7 +13,7 @@
     {
       "type": "normal",
       "url": "slide2",
-      "title": "Templating - Why?",
+      "title": "Templating - why?",
       "list": [
         "Avoid PHP-style mix of logic, content and presentation",
         "Keep content out of the layout",
@@ -23,7 +23,7 @@
     {
       "type": "normal",
       "url": "slide3",
-      "title": "Why Client-side Templating?",
+      "title": "Why client-side templating?",
       "list": [
         "Keep UI responsive",
         "Sending HTML updates via Ajax is inefficient",
@@ -36,7 +36,7 @@
       "url": "slide4",
       "title": "Why jQuery.tmpl()?",
       "list": [
-        "jQuery is the biggest JS library at the moment",
+        "jQuery has the biggest market share of any JS library at the moment",
         "jQuery.tmpl() is its official templating plugin",
         "Developed by Microsoft, under MIT/GPL licence"
       ]
@@ -44,37 +44,40 @@
     {
       "type": "normal",
       "url": "slide5",
-      "title": "How Does it Work? (1)",
+      "title": "How does it work? (1)",
       "text": "Start with some data:",
       "code": {
         "language": "javascript",
+        "size": "large",
         "content": "var person = { name: 'Dave' };"
       }
     },
     {
       "type": "normal",
       "url": "slide6",
-      "title": "How Does it Work? (2)",
+      "title": "How does it work? (2)",
       "text": "Make a template for that data:",
       "code": {
         "language": "html",
+        "size": "large",
         "content": "<script id='my-first-template'\n\ttype='text/x-jquery-tmpl'>\n\t<p>Hello ${name}!</p>\n</script>"
       }
     },
     {
       "type": "normal",
       "url": "slide7",
-      "title": "How Does it Work? (3)",
+      "title": "How does it work? (3)",
       "text": "Combine the data with the template and add to the page:",
       "code": {
         "language": "javascript",
+        "size": "large",
         "content": "$('#my-first-template')\n\t.tmpl(person).appendTo('body');"
       }
     },
     {
       "type": "normal",
       "url": "slide8",
-      "title": "Template Tags",
+      "title": "Template tags",
       "list": [
         "${}",
         "{{html}}",
@@ -184,7 +187,7 @@
         },
         {
           "language": "html",
-          "content": "<script id='outer' type='text/x-jquery-tmpl'>\n\t<p>My name is ${name} and these are my cats:</p>\n\t{{tmpl cats}}\n</script>"
+          "content": "<script id='outer' type='text/x-jquery-tmpl'>\n\t<p>My name is ${name} and these are my cats:</p>\n\t{{tmpl(cats) '#inner'}}\n</script>"
         }
       ]
     },
@@ -226,15 +229,21 @@
     {
       "type": "normal",
       "url": "slide17",
-      "title": "Rendering collections",
+      "title": "The three plugins"
+    },
+    {
+      "type": "normal",
+      "url": "slide18",
+      "title": "Links and credits",
       "list": [
-        "Pass array to .tmpl() - each item will be rendered",
-        "Inside template, pass array to {{tmpl}} for sub-template",
-        "Or pass array to {{each}} to iterate within the template"
+        "Me: <a href='http://twitter.com/skilldrick'>@skilldrick</a> / <a href='http://skilldrick.co.uk'>skilldrick.co.uk</a>",
+        "<a href='http://api.jquery.com/category/plugins/templates/'>jQuery.tmpl() docs</a>",
+        "<a href='http://www.borismoore.com/2010/09/introducing-jquery-templates-1-first.html'>Boris Moore's blog</a>",
+        "<a href='http://blog.reybango.com/2010/07/09/not-using-jquery-javascript-templates-youre-really-missing-out/'>Rey Bango's blog</a>",
+        "Thanks to Rey Bango for advice.",
+        "<a href=\"javascript:location.href = 'view-source:' + location.href;\">View source</a> for more examples."
       ]
     }
-
-
     
   ]
 }
