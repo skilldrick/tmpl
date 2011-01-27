@@ -301,6 +301,14 @@ pre {
   font-size: 180%;
 }
 
+pre.small {
+  font-size: 150%;
+}
+
+pre.large {
+  font-size: 210%;
+}
+
 h1 {
   font-size: 500%;
   margin-bottom: 1em;
@@ -322,6 +330,9 @@ h2.main {
   font-size: 500%;
 }
 
+a {
+  text-decoration: none;
+}
 
 
 #credits {
