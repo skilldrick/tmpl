@@ -13,7 +13,7 @@
     {
       "type": "normal",
       "url": "slide2",
-      "title": "Templating - why?",
+      "title": "Templating &ndash; why?",
       "list": [
         "Avoid PHP-style mix of logic, content and presentation",
         "Keep content out of the layout",
@@ -229,7 +229,13 @@
     {
       "type": "normal",
       "url": "slide17",
-      "title": "The three plugins"
+      "title": "The three plugins",
+      "text": "Each of these is available to be called on a jQuery instance or as a static method &ndash; $(selector).tmpl() or $.tmpl()",
+      "list": [
+        "jQuery.tmpl(): For rendering content in a specified template",
+        "jQuery.tmplItem(): For selecting and manipulating a rendered template item",
+        "jQuery.template(): For compiling a template for later or multiple use"
+      ]
     },
     {
       "type": "normal",
@@ -238,8 +244,8 @@
       "list": [
         "Me: <a href='http://twitter.com/skilldrick'>@skilldrick</a> / <a href='http://skilldrick.co.uk'>skilldrick.co.uk</a>",
         "<a href='http://api.jquery.com/category/plugins/templates/'>jQuery.tmpl() docs</a>",
-        "<a href='http://www.borismoore.com/2010/09/introducing-jquery-templates-1-first.html'>Boris Moore's blog</a>",
-        "<a href='http://blog.reybango.com/2010/07/09/not-using-jquery-javascript-templates-youre-really-missing-out/'>Rey Bango's blog</a>",
+        "<a href='http://www.borismoore.com/2010/09/introducing-jquery-templates-1-first.html'>Boris Moore&rsquo;s blog</a> (tmpl() lead developer)",
+        "<a href='http://blog.reybango.com/2010/07/09/not-using-jquery-javascript-templates-youre-really-missing-out/'>Rey Bango&rsquo;s blog</a> (co-creator of JSMentors)",
         "Thanks to Rey Bango for advice.",
         "<a href=\"javascript:location.href = 'view-source:' + location.href;\">View source</a> for more examples."
       ]
