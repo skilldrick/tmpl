@@ -5,6 +5,9 @@
   });
   
   function setupHandlers() {
+    var prevX = 0;
+    var prevY = 0;
+
     $("#right-arrow").click(function (e) {
       slideshow.next();
       e.preventDefault();
@@ -19,14 +22,32 @@
         slideshow.previous();
         return false;
       }
-      //right arrow key
-      if (e.keyCode == 39) { 
+      //right arrow key or spacebar
+      if (e.keyCode == 39 || e.keyCode == 32) { 
         slideshow.next();
         return false;
       }
+      //home key
+      if (e.keyCode == 36) {
+        slideshow.first();
+      }
+      //end key
+      if (e.keyCode == 35) {
+        slideshow.last();
+      }
     });
-    $('#main').delegate('.slide', 'click', function () {
-      slideshow.next();
+    $('#main').delegate('.slide', 'click', function (e) {
+      var clickTolerance = 2;
+      var dx = Math.abs(e.pageX - prevX);
+      var dy = Math.abs(e.pageY - prevY);
+      //if mouse has moved less than two pixels in any direction this is a click
+      if (dx < clickTolerance && dy < clickTolerance) {
+        slideshow.next();
+      }
+    });
+    $('#main').delegate('.slide', 'mousedown', function (e) {
+      prevX = e.pageX;
+      prevY = e.pageY;
     });
     $('#main').delegate('a', 'click', function (e) {
       //Clicks on links shouldn't fire '.slide'.click() above
@@ -151,20 +172,31 @@
       slideChanged();
     }
 
+    function changeHash(slideNumber) {
+      document.location.hash = '#' + slides[slideNumber].url;
+    }
+
     //Left arrow or key was pressed
     function previous() {
       if (destinationSlide > 0) {
         //When hash changes, hashchanged is fired. This then calls gotoSlide
-        document.location.hash = '#' + slides[destinationSlide - 1].url;
+        changeHash(destinationSlide - 1);
       }
     }
 
     //Right arrow or key was pressed
     function next() {
       if (destinationSlide < slides.length - 1) {
-        //When hash changes, hashchanged is fired. This then calls gotoSlide
-        document.location.hash = '#' + slides[destinationSlide + 1].url;
+        changeHash(destinationSlide + 1);
       }
+    }
+
+    function first() {
+      changeHash(0);
+    }
+
+    function last() {
+      changeHash(slides.length - 1);
     }
 
     //Initialise slideshow by loading content as JSON.
@@ -201,16 +233,11 @@
     return {
       next: next,
       previous: previous,
+      first: first,
+      last: last,
       gotoSlide: gotoSlide,
       init: init
     };
   })();
 
 })(jQuery);
-
-// http://www.borismoore.com/2010/09/introducing-jquery-templates-1-first.html
-// http://blog.reybango.com/2010/07/09/not-using-jquery-javascript-templates-youre-really-missing-out/
-
-//Debugging: you can do a console.log() in a template to find out
-//what's going on there.
-
