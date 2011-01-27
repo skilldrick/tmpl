@@ -245,7 +245,7 @@
         "Me: <a href='http://twitter.com/skilldrick'>@skilldrick</a> / <a href='http://skilldrick.co.uk'>skilldrick.co.uk</a>",
         "<a href='http://api.jquery.com/category/plugins/templates/'>jQuery.tmpl() docs</a>",
         "<a href='http://www.borismoore.com/2010/09/introducing-jquery-templates-1-first.html'>Boris Moore&rsquo;s blog</a> (tmpl() lead developer)",
-        "<a href='http://blog.reybango.com/2010/07/09/not-using-jquery-javascript-templates-youre-really-missing-out/'>Rey Bango&rsquo;s blog</a> (co-creator of JSMentors)",
+        "<a href='http://blog.reybango.com/2010/07/09/not-using-jquery-javascript-templates-youre-really-missing-out/'>Rey Bango&rsquo;s blog</a>",
         "Thanks to Rey Bango for advice.",
         "<a href=\"javascript:location.href = 'view-source:' + location.href;\">View source</a> for more examples."
       ]
