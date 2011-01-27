@@ -47,6 +47,13 @@
     <pre class="${size}"><code class="${language}">${content}</code></pre>
   </script>
 
+  <script id="image-template" type="text/x-jquery-tmpl">
+    {{wrap($data) '#slide-wrapper'}}
+      <h1>${title}</h1>
+      <img src='${src}' />
+    {{/wrap}}
+  </script>
+
   <script id="normal-template" type="text/x-jquery-tmpl">
     {{wrap($data) '#slide-wrapper'}}
       <h1>${title}</h1>
