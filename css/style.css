@@ -275,6 +275,18 @@ footer {
   border: 1px solid black;
   background-color: #eee;
   padding: 50px;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right bottom,
+    color-stop(1, rgb(238,238,238)),
+    color-stop(0, rgb(204,204,204))
+  );
+  background-image: -moz-linear-gradient(
+    left top,
+    rgb(238,238,238) 100%,
+    rgb(204,204,204) 0%
+  );
 }
 
 .slide.current {
