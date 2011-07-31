@@ -151,7 +151,7 @@
         },
         {
           "language": "html",
-          "content": "<!--template:-->\n{{if important}}\n\t<p>It's our most valued customer, ${name}!</p>\n{{/if}}\n{{else}}\n\t<p>Hi there ${name}.</p>\n{{/else}}"
+          "content": "<!--template:-->\n{{if important}}\n\t<p>It's our most valued customer, ${name}!</p>\n{{else}}\n\t<p>Hi there ${name}.</p>\n{{/if}}"
         }
       ]
     },
