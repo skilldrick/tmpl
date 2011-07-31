@@ -253,6 +253,10 @@ footer {
 }
 
 
+a {
+  text-decoration: none;
+}
+
 .arrow {
   float: left;
   font-size: 250%;
@@ -289,6 +293,10 @@ footer {
   );
 }
 
+.slide {
+  text-align: center;
+}
+
 .slide.current {
   left: 18px;
 }
@@ -303,47 +311,44 @@ footer {
 
 .slide p, .slide li {
   font-size: 280%;
+  text-align: left;
 }
 
 .slide p {
   margin-bottom: 0.5em;
 }
 
-pre {
+.slide pre {
   font-size: 180%;
+  text-align: left;
 }
 
-pre.small {
+.slide pre.small {
+  text-align: left;
   font-size: 150%;
 }
 
-pre.large {
+.slide pre.large {
   font-size: 210%;
 }
 
-h1 {
+.slide h1 {
   font-size: 500%;
   margin-bottom: 1em;
-  text-align: center
 }
 
-h1.main {
+.slide h1.main {
   margin-top: 1em;
   font-size: 700%;
 }
 
-h2 {
+.slide h2 {
   margin-top: 1em;
   font-size: 300%;
-  text-align: center;
 }
 
-h2.main {
+.slide h2.main {
   font-size: 500%;
-}
-
-a {
-  text-decoration: none;
 }
 
 
